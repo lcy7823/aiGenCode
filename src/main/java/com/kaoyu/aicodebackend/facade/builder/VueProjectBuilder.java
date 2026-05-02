@@ -35,6 +35,7 @@ public class VueProjectBuilder {
 
     /**
      * 构建Vue项目 检查项目目录是否完整
+     * 主方法，负责执行构建流程
      *
      * @param projectPath
      */

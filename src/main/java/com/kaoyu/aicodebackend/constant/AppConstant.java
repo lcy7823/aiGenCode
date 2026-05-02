@@ -25,6 +25,8 @@ public interface AppConstant {
      */
     String CODE_DEPLOY_DIR = System.getProperty("user.dir") + "/tmp/code_deploy";
 
+    String SVG_DIR=System.getProperty("user.dir") + "/tmp/mermaid";
+
     /**
      * 部署域名
      */
