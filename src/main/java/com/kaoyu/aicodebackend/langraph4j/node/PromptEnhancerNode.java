@@ -2,7 +2,7 @@ package com.kaoyu.aicodebackend.langraph4j.node;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import com.kaoyu.aicodebackend.langraph4j.state.ImageResource;
+import com.kaoyu.aicodebackend.langraph4j.model.ImageResource;
 import com.kaoyu.aicodebackend.langraph4j.state.WorkflowContext;
 import lombok.extern.slf4j.Slf4j;
 import org.bsc.langgraph4j.action.AsyncNodeAction;

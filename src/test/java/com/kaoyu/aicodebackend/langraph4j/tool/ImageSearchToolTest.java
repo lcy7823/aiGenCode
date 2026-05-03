@@ -1,7 +1,7 @@
 package com.kaoyu.aicodebackend.langraph4j.tool;
 
 import com.kaoyu.aicodebackend.langraph4j.state.ImageCategoryEnum;
-import com.kaoyu.aicodebackend.langraph4j.state.ImageResource;
+import com.kaoyu.aicodebackend.langraph4j.model.ImageResource;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

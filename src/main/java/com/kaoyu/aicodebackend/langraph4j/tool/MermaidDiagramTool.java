@@ -1,7 +1,6 @@
 package com.kaoyu.aicodebackend.langraph4j.tool;
 
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.RuntimeUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.system.SystemUtil;
@@ -9,7 +8,7 @@ import com.kaoyu.aicodebackend.constant.AppConstant;
 import com.kaoyu.aicodebackend.exception.BusinessException;
 import com.kaoyu.aicodebackend.exception.ErrorCode;
 import com.kaoyu.aicodebackend.langraph4j.state.ImageCategoryEnum;
-import com.kaoyu.aicodebackend.langraph4j.state.ImageResource;
+import com.kaoyu.aicodebackend.langraph4j.model.ImageResource;
 import com.kaoyu.aicodebackend.manage.CosManage;
 import dev.langchain4j.agent.tool.P;
 import dev.langchain4j.agent.tool.Tool;
@@ -19,9 +18,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

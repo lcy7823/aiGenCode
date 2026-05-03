@@ -6,7 +6,7 @@ import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.kaoyu.aicodebackend.langraph4j.state.ImageCategoryEnum;
-import com.kaoyu.aicodebackend.langraph4j.state.ImageResource;
+import com.kaoyu.aicodebackend.langraph4j.model.ImageResource;
 import dev.langchain4j.agent.tool.P;
 import dev.langchain4j.agent.tool.Tool;
 import lombok.extern.slf4j.Slf4j;

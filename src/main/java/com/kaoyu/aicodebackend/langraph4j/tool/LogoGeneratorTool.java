@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.kaoyu.aicodebackend.langraph4j.state.ImageCategoryEnum;
-import com.kaoyu.aicodebackend.langraph4j.state.ImageResource;
+import com.kaoyu.aicodebackend.langraph4j.model.ImageResource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

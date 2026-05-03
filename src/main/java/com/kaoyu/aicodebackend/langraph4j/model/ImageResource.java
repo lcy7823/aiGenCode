@@ -1,5 +1,6 @@
-package com.kaoyu.aicodebackend.langraph4j.state;
+package com.kaoyu.aicodebackend.langraph4j.model;
 
+import com.kaoyu.aicodebackend.langraph4j.state.ImageCategoryEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -21,27 +21,23 @@ public class ProjectBuilderNode {
         return node_async(state -> {
             WorkflowContext context = WorkflowContext.getContext(state);
             log.info("执行节点: 项目构建");
-            String projectPath = context.getGeneratedCodeDir();
-            CodeTypeEnum codeTypeEnum = context.getGenerationType();
+            String generatedCodeDir = context.getGeneratedCodeDir();
             String buildResultDir;
-            //检查是否为vue项目
-            if (codeTypeEnum.getValue().equals(CodeTypeEnum.VUE_PROJECT.getValue())) {
-                try {
-                    VueProjectBuilder vueProjectBuilder = SpringContextUtil.getBean(VueProjectBuilder.class);
-                    boolean result = vueProjectBuilder.buildProject(projectPath);
-                    if (result) {
-                        //返回构建成功后的dist目录
-                        buildResultDir = projectPath + File.separator + "dist";
-                        log.info("构建成功，dist目录: {}", buildResultDir);
-                    } else {
-                        throw new BusinessException(ErrorCode.OPERATION_ERROR, "vue项目构建失败");
-                    }
-                } catch (Exception e) {
-                    log.error("vue构建项目时发生异常：{}", e.getMessage());
-                    buildResultDir = projectPath;//异常返回源路径
+            // 一定是 Vue 项目类型：使用 VueProjectBuilder 进行构建
+            try {
+                VueProjectBuilder vueBuilder = SpringContextUtil.getBean(VueProjectBuilder.class);
+                // 执行 Vue 项目构建（npm install + npm run build）
+                boolean buildSuccess = vueBuilder.buildProject(generatedCodeDir);
+                if (buildSuccess) {
+                    // 构建成功，返回 dist 目录路径
+                    buildResultDir = generatedCodeDir + File.separator + "dist";
+                    log.info("Vue 项目构建成功，dist 目录: {}", buildResultDir);
+                } else {
+                    throw new BusinessException(ErrorCode.SYSTEM_ERROR, "Vue 项目构建失败");
                 }
-            } else {
-                buildResultDir = projectPath;//非vue项目，直接返回代码路径
+            } catch (Exception e) {
+                log.error("Vue 项目构建异常: {}", e.getMessage(), e);
+                buildResultDir = generatedCodeDir; // 异常时返回原路径
             }
             // 更新状态
             context.setCurrentStep("项目构建");

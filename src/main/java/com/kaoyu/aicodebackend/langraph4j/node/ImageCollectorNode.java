@@ -1,16 +1,11 @@
 package com.kaoyu.aicodebackend.langraph4j.node;
 
 import com.kaoyu.aicodebackend.langraph4j.ai.ImageCollectionService;
-import com.kaoyu.aicodebackend.langraph4j.state.ImageCategoryEnum;
-import com.kaoyu.aicodebackend.langraph4j.state.ImageResource;
 import com.kaoyu.aicodebackend.langraph4j.state.WorkflowContext;
 import com.kaoyu.aicodebackend.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.bsc.langgraph4j.action.AsyncNodeAction;
 import org.bsc.langgraph4j.prebuilt.MessagesState;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.bsc.langgraph4j.action.AsyncNodeAction.node_async;
 
