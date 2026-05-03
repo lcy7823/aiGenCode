@@ -29,6 +29,7 @@ public class ReasoningStreamingChatModelConfig {
          */
         final String model_name = "doubao-seed-2-0-pro-260215";
 
+
         final int max_tokens = 96000;
 
         //根据自己需求构建模型

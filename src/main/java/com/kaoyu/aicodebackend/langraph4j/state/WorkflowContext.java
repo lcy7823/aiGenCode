@@ -1,5 +1,6 @@
 package com.kaoyu.aicodebackend.langraph4j.state;
 
+import com.kaoyu.aicodebackend.langraph4j.model.ImageCollectionPlan;
 import com.kaoyu.aicodebackend.langraph4j.model.ImageResource;
 import com.kaoyu.aicodebackend.langraph4j.model.QualityResult;
 import com.kaoyu.aicodebackend.model.enums.CodeTypeEnum;
@@ -77,6 +78,21 @@ public class WorkflowContext implements Serializable {
      * 质检结果
      */
     private QualityResult qualityResult;
+
+    /**
+     * 图片收集计划
+     */
+    private ImageCollectionPlan imageCollectionPlan;
+
+
+    /**
+     * 并发图片收集的中间结果字段
+     */
+    private List<ImageResource> contentImages;
+    private List<ImageResource> illustrations;
+    private List<ImageResource> diagrams;
+    private List<ImageResource> logos;
+
 
 
     @Serial

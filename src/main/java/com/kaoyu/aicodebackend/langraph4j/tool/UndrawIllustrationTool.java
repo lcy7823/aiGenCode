@@ -66,44 +66,5 @@ public class UndrawIllustrationTool {
         return imageList;
     }
 
-    /**
-     * 中文 → 英文（直接取 matches 第一条）
-     */
-    public String zhToEn(String text) {
-        if (StrUtil.isBlank(text)) {
-            return text;
-        }
-
-        try {
-            String encodedText = URLEncoder.encode(text, StandardCharsets.UTF_8);
-            String url = "https://api.mymemory.translated.net/get"
-                    + "?q=" + encodedText
-                    + "&langpair=zh-CN|en-US";
-
-            String jsonResp = HttpUtil.get(url, 10000);
-            JSONObject root = JSONUtil.parseObj(jsonResp);
-
-            // 核心：直接取 matches 第一条
-            JSONArray matches = root.getJSONArray("matches");
-            if (matches != null && !matches.isEmpty()) {
-                JSONObject first = matches.getJSONObject(0);
-                if (first != null) {
-                    return first.getStr("translation").trim();
-                }
-            }
-
-            // 兜底：没有 matches 时用默认字段
-            JSONObject responseData = root.getJSONObject("responseData");
-            if (responseData != null) {
-                return responseData.getStr("translatedText");
-            }
-
-        } catch (Exception e) {
-            log.error("中文 → 英文翻译失败：{}", e.getMessage(), e);
-        }
-
-        // 最终兜底：返回原文
-        return text;
-    }
 
 }

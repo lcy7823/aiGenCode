@@ -133,7 +133,7 @@ public class LogoGeneratorTool {
 
             if ("SUCCEED".equals(status)) {
                 List<String> images = data.getList("output_images", String.class);
-                return images != null && !images.isEmpty() ? images.get(0) : null;
+                return images != null && !images.isEmpty() ? images.getFirst() : null;
             } else if ("FAILED".equals(status)) {
                 log.error("任务失败，taskId: {}", taskId);
                 return null;
