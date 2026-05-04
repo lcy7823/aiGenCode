@@ -2,6 +2,7 @@ package com.kaoyu.aicodebackend.service.impl;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
+import com.kaoyu.aicodebackend.constant.AppConstant;
 import com.kaoyu.aicodebackend.exception.BusinessException;
 import com.kaoyu.aicodebackend.exception.ErrorCode;
 import com.kaoyu.aicodebackend.exception.ThrowUtils;
@@ -13,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -39,7 +41,9 @@ public class ScreenshotServiceImpl implements ScreenshotService {
             //上传截图cos todo 备案域名没搞定，先用本地路径
             //String cosUrl = uploadFileToCos(localScreenshotPath);
             //ThrowUtils.throeIf(StrUtil.isBlank(cosUrl), ErrorCode.OPERATION_ERROR, "上传截图cos失败");
-            return localScreenshotPath;
+            //http://localhost:8123/api/images/screenshot/test.jpg
+            Path path= Path.of(localScreenshotPath);
+            return String.format("%s/%s",AppConstant.CODE_DEPLOY_HOST_DEV,path.getFileName());
         } finally {
             //删除本地截图
             //cleanLocalFile(localScreenshotPath);

@@ -6,6 +6,7 @@ import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.kaoyu.aicodebackend.ai.AiCodeGenTypeRoutingService;
+import com.kaoyu.aicodebackend.ai.AiCodeGenTypeRoutingServiceFactory;
 import com.kaoyu.aicodebackend.common.DeleteRequest;
 import com.kaoyu.aicodebackend.constant.AppConstant;
 import com.kaoyu.aicodebackend.constant.UserConstant;
@@ -69,7 +70,8 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
     private ScreenshotService screenshotService;
 
     @Resource
-    private AiCodeGenTypeRoutingService aiCodeGenTypeRoutingService;
+    private AiCodeGenTypeRoutingServiceFactory aiCodeGenTypeRoutingServiceFactory;
+
 
 
     /**
@@ -116,8 +118,8 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
 
         //暂时设置为VUE_PROJECT生成    todo 后续根据需求调整
         //app.setCodeGenType(CodeTypeEnum.VUE_PROJECT.getValue());
-
-        CodeTypeEnum codeGenType = aiCodeGenTypeRoutingService.routeCodeType(initPrompt);
+        AiCodeGenTypeRoutingService routingService = aiCodeGenTypeRoutingServiceFactory.createAiCodeGenTypeRoutingService();
+        CodeTypeEnum codeGenType = routingService.routeCodeType(initPrompt);
         app.setCodeGenType(codeGenType.getValue());
         //存入数据库
         boolean result = this.save(app);

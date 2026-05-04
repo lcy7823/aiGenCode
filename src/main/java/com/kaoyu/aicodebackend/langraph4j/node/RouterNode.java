@@ -1,6 +1,7 @@
 package com.kaoyu.aicodebackend.langraph4j.node;
 
 import com.kaoyu.aicodebackend.ai.AiCodeGenTypeRoutingService;
+import com.kaoyu.aicodebackend.ai.AiCodeGenTypeRoutingServiceFactory;
 import com.kaoyu.aicodebackend.langraph4j.state.WorkflowContext;
 import com.kaoyu.aicodebackend.model.enums.CodeTypeEnum;
 import com.kaoyu.aicodebackend.utils.SpringContextUtil;
@@ -19,7 +20,8 @@ public class RouterNode {
             CodeTypeEnum generationType;
             try{
                 //调用ai服务路由决策
-                AiCodeGenTypeRoutingService aiCodeGenTypeRoutingService = SpringContextUtil.getBean(AiCodeGenTypeRoutingService.class);
+                AiCodeGenTypeRoutingServiceFactory aiCodeGenTypeRouting = SpringContextUtil.getBean(AiCodeGenTypeRoutingServiceFactory.class);
+                AiCodeGenTypeRoutingService aiCodeGenTypeRoutingService = aiCodeGenTypeRouting.createAiCodeGenTypeRoutingService();
                 generationType = aiCodeGenTypeRoutingService.routeCodeType(context.getOriginalPrompt());
                 log.info("路由决策结果: {}", generationType.getText());
             }catch (Exception e){

@@ -13,6 +13,7 @@ import com.mybatisflex.core.paginate.Page;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.*;
@@ -111,6 +112,11 @@ public class AppController {
      * @return
      */
     @PostMapping("/sift/Vo/list/page")
+    @Cacheable(
+            value = "good_app_page",
+            key = "T(com.kaoyu.aicodebackend.utils.CacheKeyUtils).generateCacheKey(#appQueryRequest)",
+            condition = "#appQueryRequest.pageNum<=10"
+    )
     public BaseResponse<Page<AppVo>> getSiftAppVoListPage(@RequestBody AppQueryRequest appQueryRequest, HttpServletRequest request) {
         Page<AppVo> appVoPage = appService.getSiftAppVoListPage(appQueryRequest, request);
         return ResultUtils.success(appVoPage);
@@ -230,8 +236,6 @@ public class AppController {
                             HttpServletResponse response) {
         projectDownloadService.downloadProject(appId, request, response);
     }
-
-
 
 
 }

@@ -32,5 +32,11 @@ public interface AppConstant {
      */
     String CODE_DEPLOY_HOST = "http://localhost";
 
+    /**
+     * 个人开发使用
+     * http://localhost:8123/api/images/screenshot/test.jpg
+     */
+    String CODE_DEPLOY_HOST_DEV = "http://localhost:8123/api/images/screenshot";
+
 
 }
