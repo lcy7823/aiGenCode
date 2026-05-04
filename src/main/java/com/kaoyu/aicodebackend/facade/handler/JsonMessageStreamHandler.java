@@ -63,8 +63,8 @@ public class JsonMessageStreamHandler {
                     //响应完成，保存对话历史记录
                     chatHistoryService.addChatHistory(appId, loginUser.getId(), chatHistoryBuilder.toString(), MessageTypeEnum.AI.getValue());
                     //构建项目
-                    String projectPath= AppConstant.CODE_OUTPUT_DIR+"/vue_project_"+appId;
-                    vueProjectBuilder.buildProjectAsync(projectPath);
+                    //String projectPath= AppConstant.CODE_OUTPUT_DIR+"/vue_project_"+appId;
+                    //vueProjectBuilder.buildProjectAsync(projectPath);
 
                 })
                 .doOnError(error -> {
