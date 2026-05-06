@@ -8,6 +8,8 @@ import com.kaoyu.aicodebackend.common.ResultUtils;
 import com.kaoyu.aicodebackend.constant.UserConstant;
 import com.kaoyu.aicodebackend.model.dto.app.*;
 import com.kaoyu.aicodebackend.model.vo.app.AppVo;
+import com.kaoyu.aicodebackend.rateLimit.annotation.RateLimit;
+import com.kaoyu.aicodebackend.rateLimit.enums.RateLimitType;
 import com.kaoyu.aicodebackend.service.ProjectDownloadService;
 import com.mybatisflex.core.paginate.Page;
 import jakarta.annotation.Resource;
@@ -189,6 +191,7 @@ public class AppController {
      * @param request
      * @return
      */
+    @RateLimit(limitType = RateLimitType.USER, rate = 5, rateInterval = 60,message = "AI 对话请求频率过快，请稍后重试！")
     @GetMapping(value = "/chat/gen/code", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<String>> chatToGenCode(@RequestParam Long appId,
                                                        @RequestParam String message,

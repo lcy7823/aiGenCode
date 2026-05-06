@@ -17,6 +17,7 @@ spring:
       port: 6379
       password:
       ttl: 3600  # 秒
+      database: 0
 
 mybatis-flex:
   global-config:
