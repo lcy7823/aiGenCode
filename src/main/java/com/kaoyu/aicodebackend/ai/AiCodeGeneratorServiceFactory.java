@@ -6,6 +6,8 @@ import com.kaoyu.aicodebackend.ai.tools.FileWriteTool;
 import com.kaoyu.aicodebackend.ai.tools.ToolManager;
 import com.kaoyu.aicodebackend.exception.BusinessException;
 import com.kaoyu.aicodebackend.exception.ErrorCode;
+import com.kaoyu.aicodebackend.guardrail.PromptSafaInputGuardrail;
+import com.kaoyu.aicodebackend.guardrail.RetryOutputGuardrail;
 import com.kaoyu.aicodebackend.model.enums.CodeTypeEnum;
 import com.kaoyu.aicodebackend.service.ChatHistoryService;
 import com.kaoyu.aicodebackend.utils.SpringContextUtil;
@@ -74,14 +76,17 @@ public class AiCodeGeneratorServiceFactory {
         chatHistoryService.loadChatHistoryToMemory(appId, chatMemory, 20);
         return switch (codeType) {
             case VUE_PROJECT -> {
-                StreamingChatModel reasoningStreamingChatModel= SpringContextUtil.getBean("reasoningStreamingChatModelPrototype", StreamingChatModel.class);
+                StreamingChatModel reasoningStreamingChatModel = SpringContextUtil.getBean("reasoningStreamingChatModelPrototype", StreamingChatModel.class);
                 yield AiServices.builder(AiCodeGeneratorService.class)
                         .streamingChatModel(reasoningStreamingChatModel)
                         .chatMemoryProvider(memoryId -> chatMemory)
                         .tools(toolManager.getAllTools())
+                        .maxSequentialToolsInvocations(20) // 最大连续工具调用次数
+//                        .inputGuardrails(new PromptSafaInputGuardrail())    //添加输入护轨
+//                        .outputGuardrails(new RetryOutputGuardrail())       //添加输出护轨
                         .hallucinatedToolNameStrategy(toolExecutionRequest -> ToolExecutionResultMessage.from(
                                 toolExecutionRequest, "Error: there is no tool called" + toolExecutionRequest.name()
-                        ))
+                        ))  //处理不存在的工具调用，也就是ai幻觉就会返回工具不存在给ai
                         .build();
             }
             case HTML, MULTI_FILE -> {
@@ -97,14 +102,11 @@ public class AiCodeGeneratorServiceFactory {
     }
 
 
-
-
-
     /**
      * 兼容下面的代码，根据appId获取HTML代码服务
      */
     public AiCodeGeneratorService getAiCodeGeneratorService(Long appId) {
-        return getAiCodeGeneratorService(appId,CodeTypeEnum.HTML);
+        return getAiCodeGeneratorService(appId, CodeTypeEnum.HTML);
     }
 
     @Bean
